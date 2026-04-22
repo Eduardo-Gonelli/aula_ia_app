@@ -84,4 +84,19 @@ if st.button("Executar Análise e Rastrear no MLflow", type="primary"):
                 )
                 acuracia = df_resultados['acertou'].mean()
                 
-                # Logando métricas e art
+                # Logando métricas e artefatos
+                mlflow.log_metric("acuracia", acuracia)
+                mlflow.log_table(data=df_resultados, artifact_file="resultados_analise.json")
+                
+                run_id = run.info.run_id
+                
+        st.success(f"✅ Análise concluída e registrada no MLflow! (Run ID: {run_id})")
+        
+        # Mostrando Métricas na Tela
+        col1, col2 = st.columns(2)
+        col1.metric("Acurácia do Prompt", f"{acuracia*100:.1f}%")
+        col2.metric("Total Analisado", len(df_golden))
+        
+        st.markdown("**Resultados Detalhados**")
+        st.dataframe(df_resultados, use_container_width=True)
+        
