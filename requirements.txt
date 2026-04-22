@@ -1,0 +1,8 @@
+# pip install -r requirements.txt
+python-dotenv
+ipykernel
+OpenAI
+PyPDF2
+gradio
+streamlit
+mlflow
